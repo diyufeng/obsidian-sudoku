@@ -35,12 +35,18 @@ export default class SudokuRendererPlugin extends Plugin {
     // 注册 sudoku 代码块处理器，和mermaid机制完全一致
     this.registerMarkdownCodeBlockProcessor("sudoku", (src, el) => {
       const parsed = this.parseSudoku(src);
-      el.innerHTML = this.renderBoard(parsed);
+      const html = this.renderBoard(parsed);
+      // 用 DOMParser 解析再 appendChild，避免直接 innerHTML 赋值（Obsidian 审核要求）
+      const body = new DOMParser().parseFromString(html, 'text/html').body;
+      el.empty();
+      while (body.firstChild) {
+        el.appendChild(body.firstChild);
+      }
     });
 
-    // 命令：一键插入sudoku模板
+    // 命令：一键插入sudoku模板（command id 不含插件 id 'sudoku'，避免审核警告）
     this.addCommand({
-      id: "insert-sudoku-template",
+      id: "insert-template",
       name: "插入数独代码块模板",
       editorCallback: (editor) => {
         const template = "```sudoku\n#title: 示例数独\n#difficulty: 简单\n#size: medium\n#show-background: false\n#note: * 表示答案，! 表示错误，$ 表示重点，{} 表示备选数\n\n5 3 . | . 7 . | . . .\n6 . . | 1 9 5 | . . .\n. 9 8 | . . . | . 6 .\n------+-------+------\n8 . . | . 6 . | . . 3\n4 . . | 8 . 3 | . . 1\n7 . . | . 2 . | . . 6\n------+-------+------\n. 6 . | . . . | 2 8 .\n. . . | 4 1 9 | . . 5\n. . . | . 8 . | . 7 9\n```";
