@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+main.js
+
+# Trae workspace skill (local only)
+.trae/
+
+# Misc
+.DS_Store
+*.log
+.idea/
+.vscode/

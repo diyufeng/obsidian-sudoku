@@ -1,0 +1,152 @@
+/* 尺寸变量：默认 medium，由 .size-* 覆盖，单元格/字号/粗边框单一来源 */
+.sudoku-wrapper {
+  --cell: 38px;
+  --label-size: 14px;
+  --num-size: 20px;
+  --cand-size: 10px;
+  --thick: 3px;
+  --thin: 1px;
+  --thick-color: #222;
+  --thin-color: #aaa;
+  --even-bg: rgba(128, 128, 128, 0.12);
+  --label-color: #888;
+  --q-color: var(--text-normal, #222);
+  --a-color: var(--color-blue, #4ea7f5);
+  --w-color: var(--color-red, #e74c3c);
+  --highlight-bg: rgba(255, 165, 0, 0.35);
+}
+
+/* 明暗主题适配：Obsidian 在 body 上加 .theme-light / .theme-dark */
+.theme-dark .sudoku-wrapper {
+  --thick-color: #e0e0e0;
+  --thin-color: #5a5a5a;
+  --even-bg: rgba(128, 128, 128, 0.20);
+  --label-color: #888;
+}
+
+.sudoku-wrapper.size-small {
+  --cell: 26px;
+  --label-size: 10px;
+  --num-size: 14px;
+  --cand-size: 8px;
+  --thick: 2px;
+}
+
+.sudoku-wrapper.size-large {
+  --cell: 52px;
+  --label-size: 18px;
+  --num-size: 28px;
+  --cand-size: 14px;
+  --thick: 3px;
+}
+
+/* 容器：隔离 Obsidian 默认表格样式 */
+.sudoku-wrapper {
+  display: inline-block;
+}
+
+.sudoku-wrapper .sudoku-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 12px 0;
+  table-layout: fixed;
+  width: auto;
+}
+
+/* 所有单元格统一尺寸与对齐 */
+.sudoku-wrapper .sudoku-table td {
+  box-sizing: border-box;
+  width: var(--cell);
+  height: var(--cell);
+  min-width: var(--cell);
+  min-height: var(--cell);
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  line-height: var(--cell);
+  overflow: hidden;
+}
+
+/* 无边框单元格：序号行列与上下左右空白边距 */
+.sudoku-wrapper .sudoku-table .plain-cell {
+  border: none;
+  font-size: var(--label-size);
+  color: var(--label-color);
+}
+
+/* 数据单元格：只画右、下边，避免相邻重复 */
+.sudoku-wrapper .sudoku-table .sudoku-cell {
+  font-size: var(--num-size);
+  border-right: var(--thin) solid var(--thin-color);
+  border-bottom: var(--thin) solid var(--thin-color);
+}
+
+/* 偶数宫底色：仅在 show-background 启用时显示 */
+.sudoku-wrapper.show-background .sudoku-table .palace-even {
+  background-color: var(--even-bg);
+}
+
+/* 最外圈粗边框 */
+.sudoku-wrapper .sudoku-table .sudoku-cell.row-0 { border-top: var(--thick) solid var(--thick-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.col-0 { border-left: var(--thick) solid var(--thick-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.col-8 { border-right: var(--thick) solid var(--thick-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.row-8 { border-bottom: var(--thick) solid var(--thick-color); }
+
+/* 九宫分界粗线 */
+.sudoku-wrapper .sudoku-table .sudoku-cell.thick-right  { border-right: var(--thick) solid var(--thick-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.thick-bottom { border-bottom: var(--thick) solid var(--thick-color); }
+
+/* 元数据栏：显示在棋盘上方 */
+.sudoku-wrapper .sudoku-meta {
+  margin: 4px 0 8px 0;
+  padding: 0 2px;
+  font-family: var(--font-interface, inherit);
+}
+.sudoku-wrapper .sudoku-meta .meta-title {
+  font-size: calc(var(--num-size) * 0.9);
+  font-weight: bold;
+  color: var(--text-normal, #222);
+  line-height: 1.3;
+}
+.sudoku-wrapper .sudoku-meta .meta-difficulty {
+  font-size: var(--label-size);
+  color: var(--label-color);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.sudoku-wrapper .sudoku-meta .meta-note {
+  font-size: var(--label-size);
+  color: var(--label-color);
+  margin-top: 4px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* 单元格类型颜色 */
+.sudoku-wrapper .sudoku-table .sudoku-cell.cell-question { color: var(--q-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.cell-answer   { color: var(--a-color); }
+.sudoku-wrapper .sudoku-table .sudoku-cell.cell-wrong    { color: var(--w-color); }
+
+/* 重点单元格：橙色背景，明暗主题均可见 */
+.sudoku-wrapper .sudoku-table .sudoku-cell.cell-highlight {
+  background-color: var(--highlight-bg);
+}
+/* 重点与偶数宫底色同时存在时，重点优先（后定义优先级高） */
+
+/* 备选数：3x3 网格，1-9 按文档流自然填入对应位置 */
+.sudoku-wrapper .sudoku-table .sudoku-cell .candidates {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  line-height: 1;
+}
+.sudoku-wrapper .sudoku-table .sudoku-cell .cand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--cand-size);
+  color: var(--label-color);
+  line-height: 1;
+}

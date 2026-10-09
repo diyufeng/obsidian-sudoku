@@ -1,0 +1,21 @@
+{
+  "name": "obsidian-sudoku",
+  "version": "0.1.0",
+  "description": "Render Sudoku puzzles directly inside Obsidian notes",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+  },
+  "keywords": [],
+  "author": "diyufeng",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.226",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "0.17.3",
+    "obsidian": "latest",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  }
+}
