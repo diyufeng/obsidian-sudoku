@@ -1,7 +1,7 @@
 {
   "id": "sudoku",
   "name": "Sudoku",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.4.0",
   "description": "Render Sudoku puzzles directly inside notes.",
   "author": "diyufeng",

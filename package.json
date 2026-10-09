@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-sudoku",
-  "version": "0.1.0",
-  "description": "Render Sudoku puzzles directly inside Obsidian notes",
+  "name": "sudoku",
+  "version": "0.1.1",
+  "description": "Render Sudoku puzzles directly inside notes.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
