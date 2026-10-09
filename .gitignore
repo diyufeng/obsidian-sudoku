@@ -7,6 +7,9 @@ main.js
 # Trae workspace skill (local only)
 .trae/
 
+# GitHub Actions
+.github/
+
 # Misc
 .DS_Store
 *.log

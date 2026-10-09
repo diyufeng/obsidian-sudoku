@@ -36,7 +36,7 @@ npm install
 npm run build
 ```
 
-将 `main.js`、`manifest.json`、`styles.css` 复制到 `<vault>/.obsidian/plugins/obsidian-sudoku/`，然后在 **设置 → 第三方插件** 中启用。
+将 `main.js`、`manifest.json`、`styles.css` 复制到 `<vault>/.obsidian/plugins/sudoku/`，然后在 **设置 → 第三方插件** 中启用。
 
 ## 用法
 

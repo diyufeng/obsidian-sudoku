@@ -36,7 +36,7 @@ npm install
 npm run build
 ```
 
-Copy `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/obsidian-sudoku/`, then enable the plugin in **Settings → Community plugins**.
+Copy `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/sudoku/`, then enable the plugin in **Settings → Community plugins**.
 
 ## Usage
 
